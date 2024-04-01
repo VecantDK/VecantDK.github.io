@@ -94,6 +94,5 @@ featured-condition-size: 1              # 相同标签数量大于这个数，�
 chrome-tab-theme-color: "#000000"
 service-worker: true
 
-#禁用 Kramdown 自带的公式解释器
-kramdown:
-  math_engine: null
+#设置markdown引擎为kramdown
+markdown: kramdown
