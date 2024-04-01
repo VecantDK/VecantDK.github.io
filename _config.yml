@@ -17,7 +17,7 @@ sidebar-about-description: "A OIer from Zhejiang."
 
 
 # SNS settings
-RSS: false
+RSS: true
 # weibo_username:     qiubaiying
 zhihu_username:     rbk-dk
 github_username:    VecantDK
@@ -94,3 +94,6 @@ featured-condition-size: 1              # 相同标签数量大于这个数，�
 chrome-tab-theme-color: "#000000"
 service-worker: true
 
+#禁用 Kramdown 自带的公式解释器
+kramdown:
+  math_engine: null
