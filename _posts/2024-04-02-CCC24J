@@ -1,0 +1,328 @@
+---
+layout:     post
+title:      TEST
+subtitle:   TEST
+date:       2024-04-01
+author:     VecantDK
+header-img: img/post-bg-coffee.jpeg
+catalog: 	 true
+
+tags:
+    - OI
+---
+
+DMOJ镜像比赛链接：[DMOJ - CCC ‘24 J](https://dmoj.ca/contest/ccc24j)
+
+# T1 Conveyor Belt Sushi
+
+## 题面
+
+### 原题链接
+
+[DMOJ](https://dmoj.ca/problem/ccc24j1)
+
+[Luogu](https://www.luogu.com.cn/problem/P10290)
+
+### 题目大意
+
+每一个红色盘子的寿司需要 $3$ 美元，每一个绿色盘子的寿司需要 $4$ 美元，每一个蓝色盘子的寿司需要 $5$​ 美元。
+
+你的任务是根据顾客选择的每种颜色的盘子数量，确定一顿饭的价钱。
+
+## 题解
+
+### 思路
+
+$C=3\times R+4\times G+5\times B$，直接输出即可。
+
+### 代码
+
+```cpp
+#include <cstdio>
+
+int r, g, b;
+
+int main()
+{
+	scanf("%d%d%d",&r, &g, &b);
+	printf("%d\n", r * 3 + g * 4 + b * 5);
+	return 0;
+}
+```
+
+
+
+# T2 Dusa And The Yobis
+
+## 题面
+
+### 原题链接
+
+[DMOJ](https://dmoj.ca/problem/ccc24j2)
+
+[Luogu](https://www.luogu.com.cn/problem/P10291)
+
+### 题目描述
+
+Dusa 吃 Yobi，但是只吃大小在某个范围里的 Yobi。
+
+如果 Dusa 遇到了一个大小比它小的 Yobi，它会吃掉这个 Yobi 并把它的大小吞并。（即令自己的大小加上这个 Yobi 的大小。）
+
+如果 Dusa 遇到了一个和它一样大或者甚至比它更大的 Yobi，Dusa 会选择逃跑并且不吃掉 Yobi。
+
+Dusa 现在遇到了一列 Yobi 并且按照顺序遇到它们。保证 Dusa 必定会遇到一个 Yobi 导致它逃跑。你需要确定 Dusa 逃跑时的大小。
+
+
+
+## 题解
+
+### 思路
+
+按题意模拟。由于不确定输入几个 Yobi，所以要使用 `while（~scanf)` 或 `while(cin)` 读入。如果读入的 Yobi 大小小于当前的 $D$ 就把它累加到 $D$，否则结束循环。
+
+### 代码
+
+```cpp
+#include <cstdio>
+
+int d, t;
+
+int main()
+{
+	scanf("%d", &d);
+	while(~scanf("%d", &t))
+		if(t < d) d += t;
+		else break;
+	printf("%d\n", d);
+	return 0;
+}
+```
+
+# T3 Bronze Count
+
+## 题面
+
+### 原题链接
+
+[DMOJ](https://dmoj.ca/problem/ccc24j3)
+
+[Luogu](https://www.luogu.com.cn/problem/P10292)
+
+### 题目大意
+
+给出一个长度为 $N$ 的数组，求数组中第三大的数和这个数出现的次数。
+
+## 题解
+
+### 思路
+
+对数组 $A$ 进行排序、去重，去重后数组的第三位 $A_3$ 即为第三大的数。再建立一个桶数组 $b$，在读入时累加，则 $A$ 数组中 $A_3$ 出现的次数为 $b_{A_3}$.
+
+### 代码
+
+```cpp
+#include <cstdio>
+#include <algorithm>
+#include <cstring>
+#include <functional>
+
+const int MAXN=2.5 * 1e5 + 5;
+int n, a[MAXN], buc[MAXN];
+
+int main()
+{
+	scanf("%d", &n);
+	for (int i = 0;i < n;i++)
+	{
+		scanf("%d", a + i);
+		buc[a[i]]++;
+	}
+	int c[MAXN]; 									//去重后的a数组	
+	std :: memcpy(c, a, sizeof(a));					//复制a数组到c 
+	std :: sort(c, c + n, std :: greater<int>());	//对c数组排序 
+	std :: unique(c, c + n) - c;					//对c数组去重 
+	printf("%d %d\n",c[2], buc[c[2]]);
+	return 0;
+}
+```
+
+# T4 Troublesome Keys
+
+## 题面
+
+### 原题链接
+
+[DMOJ](https://dmoj.ca/problem/ccc24j4)
+
+[Luogu](https://www.luogu.com.cn/problem/P10293)
+
+### 题目大意
+
+Alex 的键盘很奇怪。有两个字母按键出现了问题：
+
+- 键盘上有一个按键，每次按下它的时候总是显示另一个错误的字母。Alex 把这个按键称为愚蠢的按键。奇怪的是，Alex 从来没有尝试过输入这个错误的字母。
+- 键盘上还有一个按键，按下它的时候则不会显示任何内容。Alex 把这个按键称为安静的按键。
+
+Alex 至少按下了一次愚蠢的按键，但不一定按下了安静的按键。
+
+你需要确定出现问题的按键和按下它时显示的错误的字母。幸运的是，这是可能的，因为 Alex 从来没有在按下愚蠢的按键之后立即按下安静的按键，也没有再按下安静的按键之后立即按下愚蠢的按键。
+
+## 题解
+
+### 思路
+
+大模拟。
+
+如果存在安静的按键，那么在按下安静的按键后所有的字符都是错位的。所以应该先找出安静的按键。
+
+从 $0$ 到 $N-2$ （单独考虑 $s1_{N-1}$）循环遍历 Alex 按下按键的字符串 $s1$，当 $s1_i\neq s2_i$ 时，设跳过有问题的字符后的第一个字符为 $j$，则有两种情况：
+
+1. 当 $s1_j==s2_i$ 时，$s1_i$ 是一个安静的按键。例如下面的两个字符串，$s1_3==s2_1$ ，故 $s1_1=\text 'o\text '$ 是一个安静的按键 。
+
+$$
+s1:\; \; \; l\quad o\quad o\quad p\quad s\\
+s2:\; \; \; l\quad p\quad s\quad \quad \quad\\
+下标:0\quad 1\quad 2\quad 3 \quad 4
+$$
+
+2. 当 $s1_j==s2_j$ 时，$s1_i$ 是一个愚蠢的按键。例如下面的两个字符串，$s1_3==s2_3$ ，故 $s1_1=\text 'o\text '$ 是一个愚蠢的按键 。
+
+$$
+s1:\; \; \; l\quad o\quad o\quad p\quad s\\
+s2:\; \; \; l\quad x\quad x\quad p\quad s\\
+下标:0\quad 1\quad 2\quad 3 \quad 4
+$$
+
+当 $s1_{N-1}$ 是安静的按键时需要特判。
+
+在找到安静的按键后，删除 $s1$ 里所有安静的按键。设 $s1$ 删除安静的按键后为 $s3$。此时，$s3$ 的长度与 $s2$ 相同。
+
+然后从 $0$ 到 $s3.length()-1$ 遍历字符串，当遇到 $s3_i\neq s2_i$ 时，$s3_i$ 即为愚蠢的按键。记录下 $s3_i$ 和 $s2_i$ 的值，然后输出，结束程序。
+
+### 程序
+
+```cpp
+#include <cstdio>
+#include <iostream>
+
+std :: string s1, s2, s3; 
+int qd, sd, st;		//qd:安静的按键 ; sd:愚蠢的按键 ; st:按下愚蠢的按键所显示的字符 
+
+int main()
+{
+	std :: cin >> s1 >> s2;
+	if (s1.length() != s2.length())		//如果按下了安静的按键 
+	{
+		for (int i = 0;i < s1.length() - 1;i++)
+		{
+			if (s1[i] == s2[i]) continue; 
+			int j = i;
+			while (s1[j] == s1[i]) j++;		//跳过有问题的按键(可能是愚蠢的按键或者安静的按键) 
+			if (s1[j] == s2[i])
+			{
+				qd = s1[i];
+				break;
+			}
+		}
+		if (!qd && s1[s1.length() - 1] != s2[s2.length() - 1])	//如果最后一个按键是安静的按键 
+			qd = s1[s1.length() - 1];
+	}
+	for (int i = 0;i < s1.length();i++)		//s3:去掉安静的按键后的s1
+		if (s1[i] != qd) s3 += s1[i];
+	for (int i = 0;i < s3.length();i++)		//找愚蠢的按键 
+		if (s2[i] != s3[i])
+		{
+			sd = s3[i], st = s2[i];
+			break;
+		}
+	printf("%c %c\n", sd, st);https://www.luogu.com.cn/problem/P10294
+	if (qd) putchar(qd);
+	else putchar('-');
+	printf("\n");
+	return 0;
+} 
+```
+
+# T5 Harvest Waterloo
+
+## 题面
+
+### 题目链接
+
+[DMOJ](https://dmoj.ca/problem/ccc24j5)
+
+[Luogu](https://www.luogu.com.cn/problem/P10294)
+
+### 题目大意
+
+有一款新出现的广受欢迎的收割模拟游戏叫做 Harvest Waterloo。游戏在一块矩形南瓜地上进行，南瓜地里有成捆的干草和不同大小的南瓜。游戏开始时，一个农民在其中一个南瓜的位置上。
+
+农民通过在整片土地上向左、向右、向上或向下移动来收割南瓜。农民不能斜着移动，不能穿过干草，也不能离开田地。
+
+你的工作是确定农民收获的南瓜的总价值。其中一个小南瓜值 $1$ 美元，一个中等大小的南瓜值 $5$ 美元，而一个大南瓜值 $10$ 美元。
+
+## 题解
+
+### 思路
+
+**题目数据范围 **$1\leq N,C\leq 10^5$**，不能用邻接矩阵。**
+
+从输入给定的 $(A,B)$ 开始搜索，将连通块内所有南瓜的价值累加起来即答案。
+
+### 代码
+
+```cpp
+#include <cstdio>
+#include <queue>
+#include <vector>
+
+const int MAXN = 1e5 + 5;
+const int d[][2] = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+struct node
+{
+	int x, y;
+};
+std :: vector<char>mp[MAXN];
+std :: vector<bool>vis[MAXN];
+int n, m, sx, sy, ans;
+std :: queue<node>q;
+void bfs()
+{
+	node now = (node){sx, sy};
+	q.push(now);
+	vis[sx][sy] = true;
+	while (!q.empty())
+	{
+		now = q.front();
+		q.pop();
+		if (mp[now.x][now.y] == 'L') ans += 10;
+		else if (mp[now.x][now.y] == 'M') ans += 5;
+		else if (mp[now.x][now.y] == 'S') ans += 1;
+		for (int i = 0;i < 4;i++)
+		{
+			int nx = now.x + d[i][0], ny = now.y + d[i][1];
+			if (nx < 0 || nx >= n || ny < 0 || ny >= m || mp[nx][ny] == '*') continue;
+			if (vis[nx][ny]) continue;
+			vis[nx][ny] = true;
+			q.push((node){nx,ny});
+		}
+	}
+}
+int main()
+{
+	scanf("%d%d", &n, &m);
+	for (int i = 0;i < n;i++)
+		for(int j = 0;j < m;j++)
+		{
+			char c;
+			scanf(" %c",&c);
+			mp[i].push_back(c);
+			vis[i].push_back(false);
+		}
+	scanf("%d%d", &sx, &sy);
+	bfs();
+	printf("%d\n", ans);
+	return 0;
+}
+```
+
