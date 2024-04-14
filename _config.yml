@@ -11,7 +11,7 @@ github_repo: "https://github.com/VecantDK/VecantDK.github.io/" # you code reposi
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
-sidebar-about-description: "A OIer from Zhejiang."
+sidebar-about-description: "An OIer from Zhejiang."
 # sidebar-avatar: /img/about-BY-gentle.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
