@@ -194,8 +194,8 @@ $\Leftrightarrow7\mid ({\overline{a_2 a_1 a_0}}-x)$.
 $$
 \begin{aligned}
 {} & 10^{2k}-1 & \\
-=  & \underbrace{\overline{9,\cdots,9}}_{2k\text{个}9} \\
-=  & 9\times\underbrace{\overline{1,\cdots,1}}_{2k\text{个}1} & \\
+=  & \underbrace{\overline{9\cdots9}}_{2k\text{个}9} \\
+=  & 9\times\underbrace{\overline{1\cdots1}}_{2k\text{个}1} & \\
 =  & 9(11\cdot10^{2k-2}+11\cdot10^{2k-4}+\cdots+11) & \\
 =  & 9\cdot11\cdot(10^{2k-2}+10^{2k-4}+\cdots+1).
 \end{aligned}
