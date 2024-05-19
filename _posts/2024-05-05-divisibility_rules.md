@@ -125,7 +125,7 @@ $\Leftrightarrow11\mid \overline{a_na_{n-1}\cdots a_0}$.
 
 （3）$13\mid x+4a_0$
 
-$11\Leftrightarrow13\mid 10x+40a_0$
+$\Leftrightarrow13\mid 10x+40a_0$
 
 $\Leftrightarrow13\mid 10x+40a_0-13\times3a_0$
 
