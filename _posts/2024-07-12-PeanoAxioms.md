@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      皮亚诺公理
-subtitle:   加拿大计算机竞赛
+subtitle:   
 date:       2024-07-12
 author:     VecantDK
 header-img: img/post-bg-coffee.jpeg
