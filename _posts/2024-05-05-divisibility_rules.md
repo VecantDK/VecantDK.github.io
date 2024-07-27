@@ -65,7 +65,7 @@ $\Leftrightarrow3\mid (a_0\times10^0+a_1\times10+\cdots+a_n\times10^n)$.
 
 所以 $3\mid (10^n-1)$，即 $10^n\equiv1(\mod3)$
 
-所以 $3\mid (a_0\times10^0+a_1\times10+\cdots+a_n\times10^n)$.
+所以 $3\mid (a_0\times10^0+a_1\times10+\cdots+a_n\times10^n)$，
 
 即 $3\mid (a_0+a_1+\cdots+a_n)$.
 
@@ -75,9 +75,9 @@ $\Leftrightarrow3\mid (a_0\times10^0+a_1\times10+\cdots+a_n\times10^n)$.
 
 $\Leftrightarrow9\mid (a_0\times10^0+a_1\times10+\cdots+a_n\times10^n)$.
 
-由**引理1**得知 $9\mid (10^n-1)$，即 $10^n\equiv1(\mod9)$
+由**引理1**得知 $9\mid (10^n-1)$，即 $10^n\equiv1(\mod9)$，
 
-所以 $9\mid (a_0\times10^0+a_1\times10+\cdots+a_n\times10^n)$.
+所以 $9\mid (a_0\times10^0+a_1\times10+\cdots+a_n\times10^n)$，
 
 即 $9\mid (a_0+a_1+\cdots+a_n)$.
 
