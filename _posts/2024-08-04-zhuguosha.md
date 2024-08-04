@@ -1,8 +1,8 @@
 ---
 layout:     post
-title:      CCC 2024 Junior组 题解
-subtitle:   加拿大计算机竞赛
-date:       2024-04-02
+title:      猪国杀 解题报告
+subtitle:   SDOI2010
+date:       2024-08-04
 author:     VecantDK
 header-img: img/post-bg-coffee.jpeg
 catalog: 	 true
