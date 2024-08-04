@@ -250,7 +250,7 @@ struct Pig
 	{
 		for (int i = 1; i < M; i++)
 			card[j] = 0;
-        hp = 4;
+        	hp = 4;
 	}
 }pig[N];
 ```
@@ -641,8 +641,12 @@ int main()
 
 ```cpp
 #include <iostream>
+
 #include <cstdio>
+
 #include <string>
+
+
 const int N = 15, M = 2005;
 enum PIG_TYPE
 {
@@ -661,7 +665,7 @@ struct Pig
 	{
 		for (int i = 1; i < M; i++)
 			card[i] = 0;
-        hp = 4;
+		hp = 4;
 	}
 }pig[N];
 int n, m;
