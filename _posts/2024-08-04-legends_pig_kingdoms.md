@@ -36,7 +36,7 @@ pre {
 
 # Previous synopsis
 
-<center>    <img style="border-radius: 0.3125em;    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);"     src="https://vecantdk.github.io/img/Zhuguosha_01.png" width = "65%" alt=""/>    <br>    <div style="color:orange; border-bottom: 1px solid #d9d9d9;    display: inline-block;    color: #999;    padding: 2px;">      The Zhihu users' comments on the SDOI2010      </div> </center>
+<center>    <img style="border-radius: 0.3125em;    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);"     src="https://vecantdk.github.io/img/Zhuguosha_01.png" width = "100%" alt=""/>    <br>    <div style="color:orange; border-bottom: 1px solid #d9d9d9;    display: inline-block;    color: #999;    padding: 2px;">      The Zhihu users' comments on the SDOI2010      </div> </center>
 
 > **What kind of the competition was the SDOI2010?**
 >
@@ -50,7 +50,7 @@ pre {
 > >
 > > You can learn about the "the Legends of the Pig Kingdoms".
 
-<center>    <img style="border-radius: 0.3125em;    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);"     src="https://vecantdk.github.io/img/Zhuguosha_02.png" width = "65%" alt=""/>    <br>    <div style="color:orange; border-bottom: 1px solid #d9d9d9;    display: inline-block;    color: #999;    padding: 2px;">      Excerpt from OI Wiki - Contest Related - Make Questions      </div> </center> 
+<center>    <img style="border-radius: 0.3125em;    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);"     src="https://vecantdk.github.io/img/Zhuguosha_02.png" width = "100%" alt=""/>    <br>    <div style="color:orange; border-bottom: 1px solid #d9d9d9;    display: inline-block;    color: #999;    padding: 2px;">      Excerpt from OI Wiki - Contest Related - Make Questions      </div> </center> 
 
 > Not only physics, but also the knowledge of other disciplines should not be involved too much in the OI problems. And if it does, it should be explained in detail. And the knowledge of other disciplines should not be used as a major obstacle to solving the problem.
 >
