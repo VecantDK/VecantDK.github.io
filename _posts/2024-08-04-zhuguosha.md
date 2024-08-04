@@ -33,9 +33,9 @@ pre {
 
 # 前情提要
 
-<center>    <img style="border-radius: 0.3125em;    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);"     src="https://vecantdk.github.io/img/Zhuguosha_01.png" width = "65%" alt=""/>    <br>    <div style="color:orange; border-bottom: 1px solid #d9d9d9;    display: inline-block;    color: #999;    padding: 2px;">      知乎玩家对SDOI2010的评价      </div> </center>
+<center>    <img style="border-radius: 0.3125em;    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);"     src="https://vecantdk.github.io/img/Zhuguosha_01.png" width = "100%" alt=""/>    <br>    <div style="color:orange; border-bottom: 1px solid #d9d9d9;    display: inline-block;    color: #999;    padding: 2px;">      知乎玩家对SDOI2010的评价      </div> </center>
 
-<center>    <img style="border-radius: 0.3125em;    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);"     src="https://vecantdk.github.io/img/Zhuguosha_02.png" width = "65%" alt=""/>    <br>    <div style="color:orange; border-bottom: 1px solid #d9d9d9;    display: inline-block;    color: #999;    padding: 2px;">      摘自OI Wiki - 比赛相关 - 出题      </div> </center> 
+<center>    <img style="border-radius: 0.3125em;    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);"     src="https://vecantdk.github.io/img/Zhuguosha_02.png" width = "100%" alt=""/>    <br>    <div style="color:orange; border-bottom: 1px solid #d9d9d9;    display: inline-block;    color: #999;    padding: 2px;">      摘自OI Wiki - 比赛相关 - 出题      </div> </center> 
 
 最近在寻找一些**大模拟**的题目，第一时间想到的就是这~~臭名昭著~~大名鼎鼎的[猪国杀](https://www.luogu.com.cn/problem/solution/P2482)。遂尝试了一下~~，虽然我连[结构体](https://www.luogu.com.cn/problem/P9754)都写不出来。~~经过一个下午~~的酣畅淋漓的赤石~~后，终于做出这道毒瘤的题目，遂发文纪念。
 
