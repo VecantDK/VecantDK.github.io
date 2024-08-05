@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      The solution report of the Legends of the Pig Kingdoms
+title:      （施工中）The solution report of the Legends of the Pig Kingdoms
 subtitle:   SDOI2010
 date:       2024-08-04
 author:     VecantDK
@@ -30,9 +30,6 @@ pre {
         });
     </script>
 </head>
-临时备注：[如何将三国杀的武将名、技能名、身份名、手牌名翻译成英语？ - 知乎 (zhihu.com)](https://www.zhihu.com/question/19902177)
-
-# 未完待续！！
 
 # Previous synopsis
 
