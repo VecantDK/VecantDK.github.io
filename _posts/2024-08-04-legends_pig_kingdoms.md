@@ -62,9 +62,7 @@ pre {
 
 Recently, I'm looking for some problems of the **big simulation**. The first thing that came to mind was ~~the notorious~~ the famous [the Legends of the Pig Kingdoms](https://www.luogu.com.cn/problem/P2482), so I tried it~~, although I can't even write the [structure](https://www.luogu.com.cn/problem/P9754).~~ After an afternoon ~~of eating shit~~, I finally made it, and posted this commemorative article.
 
-**NOTE: The Chinese Zodiac in 2010 is Pig. So in that year's SDOI, there were many problems in which the protagonists were pigs. **
-
-**The name of this problem, "the Legends of the Pig Kingdoms (Zhuguosha, 猪国杀)", is adapted from a cardgame which is called "Legends of the Three Kingdoms (Sanguosha, 三国杀)".**
+**NOTE: The Chinese Zodiac in 2010 is Pig. So in that year's SDOI, there were many problems in which the protagonists were pigs. The name of this problem, "the Legends of the Pig Kingdoms (Zhuguosha, 猪国杀)", is adapted from a cardgame which is called "Legends of the Three Kingdoms (Sanguosha, 三国杀)".**
 
 # Topic
 
