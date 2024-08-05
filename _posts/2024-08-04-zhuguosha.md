@@ -31,6 +31,8 @@ pre {
     </script>
 </head>
 
+[Chinese version（猪国杀 解题报告）.](https://vecantdk.github.io/2024/08/04/zhuguosha/) 
+
 # 前情提要
 
 <center>    <img style="border-radius: 0.3125em;    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);"     src="https://vecantdk.github.io/img/Zhuguosha_01.png" width = "100%" alt=""/>    <br>    <div style="color:orange; border-bottom: 1px solid #d9d9d9;    display: inline-block;    color: #999;    padding: 2px;">      知乎玩家对SDOI2010的评价      </div> </center>
