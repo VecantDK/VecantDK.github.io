@@ -31,7 +31,7 @@ pre {
     </script>
 </head>
 
-[Chinese version（猪国杀 解题报告）.](https://vecantdk.github.io/2024/08/04/zhuguosha/) 
+[English version（The solution report of the Legends of the Pig Kingdoms）.](https://vecantdk.github.io/2024/08/04/legends_pig_kingdoms/) 
 
 # 前情提要
 
