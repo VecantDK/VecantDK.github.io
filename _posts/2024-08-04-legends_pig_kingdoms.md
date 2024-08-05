@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      （施工中）The solution report of the Legends of the Pig Kingdoms
+title:      The solution report of the Legends of the Pig Kingdoms
 subtitle:   SDOI2010
 date:       2024-08-04
 author:     VecantDK
@@ -30,6 +30,7 @@ pre {
         });
     </script>
 </head>
+[Chinese version（猪国杀 解题报告）.](https://vecantdk.github.io/2024/08/04/zhuguosha/) 
 
 # Previous synopsis
 
@@ -47,7 +48,7 @@ pre {
 > >
 > > You can learn about the "the Legends of the Pig Kingdoms".
 
-<center>    <img style="border-radius: 0.3125em;    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);"     src="https://vecantdk.github.io/img/Zhuguosha_02.png" width = "100%" alt=""/>    <br>    <div style="color:orange; border-bottom: 1px solid #d9d9d9;    display: inline-block;    color: #999;    padding: 2px;">      Excerpt from OI Wiki - Contest Related - Make Questions      </div> </center> 
+<center>    <img style="border-radius: 0.3125em;    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);"     src="https://vecantdk.github.io/img/Zhuguosha_02.png" width = "100%" alt=""/>    <br>    <div style="color:orange; border-bottom: 1px solid #d9d9d9;    display: inline-block;    color: #999;    padding: 2px;">      Excerpt from OI Wiki - Contest Related - Make Problems      </div> </center> 
 
 > Not only physics, but also the knowledge of other disciplines should not be involved too much in the OI problems. And if it does, it should be explained in detail. And the knowledge of other disciplines should not be used as a major obstacle to solving the problem.
 >
@@ -60,6 +61,10 @@ pre {
 > Classic example: [SDOI2010] The Legends of the Pig Kingdoms, [training team mutual test 2015] future program · changed
 
 Recently, I'm looking for some problems of the **big simulation**. The first thing that came to mind was ~~the notorious~~ the famous [the Legends of the Pig Kingdoms](https://www.luogu.com.cn/problem/P2482), so I tried it~~, although I can't even write the [structure](https://www.luogu.com.cn/problem/P9754).~~ After an afternoon ~~of eating shit~~, I finally made it, and posted this commemorative article.
+
+**NOTE: The Chinese Zodiac in 2010 is Pig. So in that year's SDOI, there were many problems in which the protagonists were pigs. **
+
+**The name of this problem, "the Legends of the Pig Kingdoms (Zhuguosha, 猪国杀)", is adapted from a cardgame which is called "Legends of the Three Kingdoms (Sanguosha, 三国杀)".**
 
 # Topic
 
@@ -96,71 +101,71 @@ Each hand is represented by $1$ letter, which represents the type of the hand.
 
 #### The Basic hands
 
-- 『Peach / $\texttt{P}$』在自己的回合内，如果自己的体力值不等于体力上限，那么使用 $1$ 个桃可以为自己补充 $1$ 点体力，否则不能使用桃；桃只能对自己使用；在自己的回合外，如果自己的血变为 $0$ 或者更低，那么也可以使用。
+- "Peach / $\texttt{P}$" : In your turn, if your HP isn't equal to your upper HP, then you can use $1$ peach to replenish $1$  HP for yourself. Otherwise you can't use peaches; Peaches can only be used on yourself; Outside of your turn, you can also use it if your health becomes $0$ or less.
 
-- 『Strike / $\texttt{K}$』在自己的回合内，对攻击范围内除自己以外的 $1$ 名角色使用。如果没有被『闪』抵消，则造成 $1$ 点伤害。无论有无武器，杀的攻击范围都是 $1$。
+- "Strike / $\texttt{K}$" : In your turn, Cast it on $1$ character other than yourself within the attack range. It deals $1$ damage if it isn‘t negated by "Dodge". With or without a weapon, the attack range of the "Strike" is $1$.
 
-- 『Dodge / $\texttt{D}$』当你受到杀的攻击时，可以弃置 $1$ 张闪来抵消杀的效果。
+- "Dodge / $\texttt{D}$" : When you are attacked by "Strike", you can discard $1$ "Dodge" to counteract the effect of "Strike".
 
 #### The Strategic hands
 
-- 『Duel / $\texttt{F}$』出牌阶段，对除自己以外任意 $1$ 名角色使用，由目标角色先开始，自己和目标角色轮流弃置 $1$ 张杀，首先没有杀可弃的一方受到 $1$ 点伤害，另一方视为此伤害的来源。
+- "Duel / $\texttt{F}$" : In the play phase, use it on any $1$ character other than yourself. Starting with the target character first, and take turns discarding $1$ Strike for yourself and the target character. And the first character that has no "Strike" to discard will receive $1$ damage, and the other side will be deemed to be the source of this damage.
 
-- 『Barbarianpig Invasion / $\texttt{N}$』出牌阶段，对除你以外所有角色使用，按逆时针顺序从使用者下家开始依次结算，除非弃置 $1$ 张杀，否则受到 $1$ 点伤害。
+- "Barbarianpig Invasion / $\texttt{N}$" : In the play phase, use it on all characters except you. The payments are made in counterclockwise order starting from the user's next hand. Unless $1$ "Strike" is discarded, it takes $1$ damage.
 
-- 『Arrow Barrage / $\texttt{W}$』和南猪入侵类似，不过要弃置的不是杀而是闪。
+- "Arrow Barrage / $\texttt{W}$" : It's similar to the "Barbarianpig Invasion", but instead of "Strike", "Dodge" is discarded.
 
-- 『Cancel / $\texttt{J}$』在目标锦囊生效前抵消其效果。每次有 $1$ 张锦囊即将生效时，从使用这张锦囊的猪开始，按照逆时针顺序，依次得到使用无懈可击的机会；效果：用于决斗时，决斗无效并弃置；用于南猪入侵或万箭齐发时，当结算到某个角色时才能使用，当前角色不需弃置牌并且不会受到伤害（仅对 $1$ 个角色产生效果）；用于无懈可击时，成为目标的无懈可击被无效。
+- "Cancel / $\texttt{J}$" : Negates the effect of the target Strategic hand before it takes effect. Whenever $1$ Strategic hands is about to take effect, Starting with the pig using this Strategic hands, in counterclockwise order, you will be given the opportunity to use "Cancel"; Effect: When it's used for "Duel", the "Duel" is invalidated and discarded; When it's used for "Barbarianpig Invasion" or "Arrow Barrage", it can only be used when a character resolves, and the current character doesn't need to discards card, and doesn't take damage (only affects $1$ character); When it's used for "Cancel", the targeted "Cancel" is invalidated.
 
-#### 装备牌
+#### The Armor hands
 
-- 『Pig Crossbow / $\texttt{Z}$』武器，攻击范围 $1$ ，出牌阶段你可以使用任意张杀; 同一时刻最多只能装 $1$ 把武器；如果先前已经有了 $1$ 把武器，那么之后再装武器的话，会弃置以前的武器来装现在的武器。
+- "Pig Crossbow / $\texttt{Z}$" : Weapon. Its attack range is $1$. During the discard phase, you can use any "Strike"; You can only have a maximum of $1$ weapon loaded at a time; If you already had $1$ weapon before, then if you reload the weapon later, the previous weapon will be discarded to load the current weapon.
 
 ### 特殊事件及概念解释
 
-* **伤害来源**：杀、南猪入侵、万箭齐发的伤害来源均是使用该牌的猪，决斗的伤害来源如上；
+* **Damage source**: The damage source of "Strike", "Barbarianpig Invasion", and "Arrow Barrage" is the pig that uses the card. And the damage source of "Duel" is as above.
 
-* **距离**：两只猪的距离定义为沿着逆时针方向间隔的猪数 $+1$ 。即初始时 $1$ 和 $2$ 的距离为 $1$ ，但是 $2$ 和 $1$ 的距离就是 $n-1$ 。注意一个角色的死亡会导致一些猪距离的改变；
+* **Distance**: The distance between the two pigs is defined as the number of pigs spaced in a counterclockwise direction $+1$, i.e. the distance between $1$ and $2$ is $1$ initially, but the distance between $2$ and $1$ is $n-1$. Note that the death of a character causes the distance of some pigs to change.
 
-* **玩家死亡**：如果该玩家的体力降到 $0$ 或者更低，并且自己手中没有足够的桃使得自己的体力值回到 $1$ ，那么就死亡了，死亡后所有的牌（装备区，手牌区）被弃置；
+* **Death of the Player**: If a player's HP drops to $0$ or lower, and he doesn't have enough "Peach" in his hand to return his HP to $1$, he will die. And all of his hands (equipments area, hands area) are discarded upon death.
 
-* **奖励与惩罚**：反猪死亡时，最后一个伤害来源处（即使是反猪）立即摸 $3$ 张牌。忠猪死亡时，如果最后一个伤害来源是主猪，那么主猪所有装备牌、手牌被弃置。
+* **Rewards and Punishments**: When the Rebel-Pig dies, The last source of damage (even if he's a Rebel-Pig) immediately draws $3$ cards. When a Minister-Pig dies, if the last source of damage is the Monarch-Pig, all equitment cards and hand cards of the Monarch-Pig are discarded.
 
-注意：一旦达成胜利条件，游戏立刻结束，因此即使会摸 $3$ 张牌或者还有牌可以用也不用执行了。
+Note: If the victory condition is met, the game ends immediately. So you don't have to play even if you draw $3$ cards or have cards to use.
 
-现在，我们已经知道每只猪的角色、手牌，还有牌堆初始情况，并且假设每个角色会按照如下的行为准则进行游戏，你需要做的就是告诉小猪 iPig 最后的结果。
+Now tht we know each pig's character, hands, and initial deck. And assuming that each character will play according to the following code of conduct, all you need to do is tell pig iPig the final result.
 
-### 几种行为
+### Some actions
 
-* **献殷勤**：使用无懈可击挡下南猪入侵、万箭齐发、决斗；使用无懈可击抵消表敌意；  
-* **表敌意**：对某个角色使用杀、决斗；使用无懈可击抵消献殷勤；  
-* **跳忠**：即通过行动表示自己是忠猪。跳忠行动就是对主猪或对某只已经跳忠的猪献殷勤，或者对某只已经跳反的猪表敌意；  
-* **跳反**：即通过行动表示自己是反猪。跳反行动就是对主猪或对某只已经跳忠的猪表敌意，或者对某只已经跳反的猪献殷勤。
+* **Expressing friendly**: Use "Cancel" to block "Barbarianpig Invasion", "Arrow Barrage", and "Duel"; Use "Cancel" to counteract “Expressing hostility”.
+* **Expressing hostility**: Use "Strike" or "Duel" on a character; Use "Cancel" to counteract "Expressing friendly".  
+* **Showing friendly**: i.e. to show that you are a Minister-Pig through your actions. The Showing friendly action is Expressing friendly to the Monarch-Pig or to a pig that has Shown friendly. Or Express hostility to a pig that has Shown hostility.
+* **Showing hostility**: i.e. to show that you are a Rebel-Pig through your actions. The Showing hostility action is Expressing hostility to the Monarch-Pig or to a pig that has Shown friendly. Or Express friendly to a pig that has Shown hostility. 
 
-**注意：忠猪不会跳反，反猪也不会跳忠；不管是忠猪还是反猪，能够跳必然跳**。
+**NOTE: The Minister-Pigs won't Showing hostility, and the Rebel-Pigs won't Showing friendly; Whether you are a Minister-Pig or a Rebel-Pig, if you can show, you must show.**
 
-### 行动准则
+### The code of conduct
 
-#### 共性
+#### Commonalities
 
-* 每个角色如果手里有桃且生命值未满，那么必然吃掉；
-* 有南猪入侵、万箭齐发、必然使用；有装备必然装上；
-* 受到杀时，有闪必然弃置；
-* 响应南猪入侵或者万箭齐发时候，有杀 / 闪必然弃置；
-* 不会对未表明身份的猪献殷勤（**包括自己**）。
+* For each character, if he has a "Peach" in his hand and his HP isn't full, he will definitely eat it; 
+* If you have "Barbarianpig Invasion" or "Arrow Barrage", you must use it; If there is an equipment, you must equip it; 
+* When you are attacked by "Strike", if you have "Dodge", you must discard it; 
+* When you respond to the "Barbarianpig Invasion" or "Arrow Barrage"， if you have "Strike" / "Dodge", you must discard it; 
+* A pig won't Show friendly to an unidentified pig (including itself). 
 
-#### 特性
+#### Characteristics
 
- - 主猪：
+ - Monarch-Pig: 
    + 主猪会认为「没有跳身份，且用南猪入侵 / 万箭齐发对自己造成伤害的猪」是**类**反猪（没伤害到不算，注意类反猪并没有表明身份），如果之后跳了，那么主猪会重新认识这只猪；  
    + 对于每种表敌意的方式，对逆时针方向能够执行到的第一只类反猪或者已跳反猪表；如果没有，那么就不表敌意；
    + 决斗时会不遗余力弃置杀；
    + 如果能对已经跳忠的猪或自己献殷勤，那么一定献；如果能够对已经跳反的猪表敌意，那么一定表。
- - 忠猪：
+ - Minister-Pigs:
    + 对于每种表敌意的方式，对「逆时针方向能够执行到的第一只已经跳反的猪」表，如果没有，那么就不表敌意；
    + 决斗时，如果对方是主猪，那么不会弃置杀，否则，会不遗余力弃置杀；
    + 如果有机会对主猪或者已经跳忠的猪献殷勤，那么一定献。
- - 反猪：
+ - Rebel-Pigs:
    + 对于每种表敌意的方式，如果有机会则对主猪表，否则，对「逆时针方向能够执行到的第一只已经跳忠的猪」表，如果没有，那么就不表敌意；
    + 决斗时会不遗余力弃置杀；
    + 如果有机会对已经跳反的猪献殷勤，那么一定献。
