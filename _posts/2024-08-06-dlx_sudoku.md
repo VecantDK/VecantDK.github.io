@@ -34,7 +34,7 @@ pre {
 
 # 声明
 
-本文章中所有内容仅供学习交流使用，不用于其他任何目的。部分有关舞蹈链的内容内容摘自 [Dancing Links - OI Wiki](https://oi-wiki.org/search/dlx/)
+部分有关舞蹈链的内容内容摘自 [Dancing Links - OI Wiki](https://oi-wiki.org/search/dlx/)
 
 ---
 
