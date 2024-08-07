@@ -9,6 +9,7 @@ catalog: 	 true
 tags:
     - OI
     - 题解
+    - 学习笔记
 
 ---
 
