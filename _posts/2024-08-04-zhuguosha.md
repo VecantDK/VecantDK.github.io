@@ -437,7 +437,7 @@ void useF(int from, int to)
 - 若朋友对自己发出锦囊牌，则使用「无懈可击」挡住，同时「献殷勤」；
 - 若敌人使用了「无懈可击」，则使用「无懈可击」使敌人的「无懈可击」无效，同时「表敌意」。
 
-```CPP
+```cpp
 bool useJ(int from, int to, int last)	//此处last表示第一次使用无懈可击, 而不是未表明身份 
 {
 	int now = from;
