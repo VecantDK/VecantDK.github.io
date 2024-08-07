@@ -166,6 +166,7 @@ public:
 给定一个 0-1 矩阵，你可以选择一些行，使得最终每列都恰好有一个 1。
 
 例如这个矩阵：
+
 $$
 \begin{eqnarray}
 \begin{pmatrix}
