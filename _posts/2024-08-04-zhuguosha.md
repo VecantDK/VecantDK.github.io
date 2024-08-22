@@ -260,7 +260,8 @@ void hurt(int from, int to)
 				break;
 			}
 		}
-		pig[pig[to].pre].nxt = pig[to].nxt, pig[pig[to].nxt].pre = pig[to].pre;	//更新链表 
+		pig[pig[to].pre].nxt = pig[to].nxt, pig[pig[to].nxt].pre = pig[to].pre;
+		//更新链表 
 	}
 }
 ```
