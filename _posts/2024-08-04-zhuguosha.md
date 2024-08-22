@@ -12,12 +12,6 @@ tags:
 
 ---
 
-<style>
-pre {
-    overflow-y: auto;
-    max-height: 300px;
-}
-</style>
 
 <head>
     <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
@@ -217,14 +211,14 @@ $10\%$ 的数据没有锦囊牌，另外 $20\%$ 的数据没有无懈可击。
 
 ```cpp
 const int N = 15, M = 2005;
-enum PIG_TYPE
-{
+enum PIG_TYPE {
 	UKE, MP, ZP, FP 
 };
 int n, m;
 int top = 1;	//牌堆顶
 char cards[M];	//牌堆
 bool gameover;	//游戏是否结束
+int fpcnt;		//反猪数量
 ```
 
 我们使用一个枚举型来表示猪的种类。其值对应如下：
@@ -237,8 +231,7 @@ bool gameover;	//游戏是否结束
 ### 每只猪的 `struct`
 
 ```cpp
-struct Pig
-{
+struct Pig {
 	int id,	eid;	//身份, 暴露的身份
 	bool like_v;	//是否为类反猪 
 	int hp;			//生命值 
@@ -246,10 +239,9 @@ struct Pig
 	int cnt;		//牌数 
 	char card[M];	//牌堆
 	int pre, nxt;	//前面的猪和后面的猪的位置 
-	Pig()			//构造函数, 初始化牌堆, 以及设置初值
-	{
+	Pig() {			//构造函数, 初始化牌堆, 以及设置初值
 		for (int i = 1; i < M; i++)
-			card[j] = 0;
+			card[i] = 0;
         	hp = 4;
 	}
 }pig[N];
@@ -265,8 +257,7 @@ struct Pig
 ### 打印猪的手牌
 
 ```cpp
-void printcard(int x)	//打印第x只猪的手牌
-{
+void printcard(int x) { //打印第x只猪的手牌
 	for (int i = 1; i <= pig[x].cnt; i++)
 		if (pig[x].card[i])
 			printf("%c ", pig[x].card[i]);
@@ -277,11 +268,9 @@ void printcard(int x)	//打印第x只猪的手牌
 ### 找牌
 
 ```cpp
-bool findcard(int x, char card)
-{
+bool findcard(int x, char card) {
 	for (int i = 1; i <= pig[x].cnt; i++)
-		if (pig[x].card[i] == card)
-		{
+		if (pig[x].card[i] == card) {
 			pig[x].card[i] = 0;
 			return true;
 		}
@@ -294,13 +283,9 @@ bool findcard(int x, char card)
 ### 摸牌
 
 ```cpp
-void getcard(int x, int times = 1)
-{
+void getcard(int x, int times = 1) {
 	while (times--)
-	{
-		top = min(top, m);
-		pig[x].card[++pig[x].cnt] = cards[top++];
-	}
+		pig[x].card[++pig[x].cnt] = cards[(top = std :: min(top, m))++];
 }
 ```
 
@@ -316,26 +301,18 @@ void hurt(int from, int to)
 	pig[to].hp--;
 	while (pig[to].hp < 1 && findcard(to, 'P'))
 		pig[to].hp++;
-	if (pig[to].hp <= 0)
-	{
+	if (pig[to].hp <= 0) {
 		pig[to].cnt = 0, pig[to].weapon = false;	//清空物品
-		switch (pig[to].id)
-		{
-			case MP:
-			{
+		switch (pig[to].id) {
+			case MP: {
 				gameover = true;
 				return;
-			}
-			case ZP:
-			{	//若主猪杀死忠猪, 则清空主猪手牌 
+			} case ZP: {	//若主猪杀死忠猪, 则清空主猪手牌 
 				if (pig[from].id == MP)
 					pig[from].cnt = 0, pig[from].weapon = false;
 				break;
-			}
-			case FP:
-			{
-				if(!--fpcnt)
-				{
+			} case FP: {
+				if(!--fpcnt) {
 					gameover = true;
 					return;
 				}
@@ -358,13 +335,12 @@ void hurt(int from, int to)
 - `bool is_friend(int x, int y)`：判断 $x$ 和 $y$ 是否为朋友关系；
 - `void getenemy(int x, int y)`：$x$ 向 $y$「表敌意」；
 
-- `void getfriend(int x, int y)`：$x$ 向 $y$​「献殷勤」。
+- `void getfriend(int x, int y)`：$x$ 向 $y$「献殷勤」。
 
 注意：前两个函数判断的是两只猪的真实身份（即 `id`），而后者所改变的是暴露的身份（即 `eid`）。
 
 ```cpp
-bool is_enemy(int x, int y)
-{
+bool is_enemy(int x, int y) {
 	if (pig[x].id == MP && pig[y].like_v) return true;	//主猪与类反猪是敌人 
 	else if (!pig[y].eid) return false;					//未显露身份, 不是敌人 
 	//主猪、忠猪与反猪是敌人 
@@ -372,23 +348,20 @@ bool is_enemy(int x, int y)
 		return true;
 	return false;
 }
-bool is_friend(int x, int y)
-{
+bool is_friend(int x, int y) {
 	if (!pig[y].eid) return false;
 	//同类是朋友; 主猪与忠猪是朋友 
 	else if (pig[x].id != FP && pig[y].eid != FP || pig[x].id == FP && pig[y].eid == FP)
 		return true;
 	return false; 
 }
-void getenemy(int x, int y)
-{
+void getenemy(int x, int y) {
 	//不应对未亮身份的猪操作
 	if (!pig[y].eid) return;
 	if (pig[y].eid != FP) pig[x].like_v = true, pig[x].eid = FP;
 	else pig[x].like_v = false, pig[x].eid = ZP;
 }
-void getfriend(int x, int y)
-{ 
+void getfriend(int x, int y) { 
 	if (!pig[y].eid) return;
 	if (pig[y].eid != FP) pig[x].like_v = false, pig[x].eid = ZP;
 	else pig[x].like_v = true, pig[x].eid = FP;
@@ -402,8 +375,7 @@ void getfriend(int x, int y)
 按题意模拟即可。
 
 ```cpp
-void useK(int from, int to)
-{
+void useK(int from, int to) {
 	getenemy(from, to);
 	if (!findcard(to, 'D'))
 		hurt(from, to);
@@ -415,15 +387,12 @@ void useK(int from, int to)
 此时的「决斗」函数当且仅当未被「无懈可击」挡住、决斗生效时。
 
 ```cpp
-void useF(int from, int to)
-{
-	if (pig[from].id == MP && pig[to].id == ZP)	//忠猪不会对主猪弃置杀 
-	{
+void useF(int from, int to) {
+	if (pig[from].id == MP && pig[to].id == ZP) { //忠猪不会对主猪弃置杀 
 		hurt(from, to);
 		return;
 	}
-	while (true)
-	{
+	while (true) {
 		if (!findcard(to, 'K'))   {hurt(from, to); return;}
 		if (!findcard(from, 'K')) {hurt(to, from); return;}
 	}
@@ -438,14 +407,11 @@ void useF(int from, int to)
 - 若敌人使用了「无懈可击」，则使用「无懈可击」使敌人的「无懈可击」无效，同时「表敌意」。
 
 ```cpp
-bool useJ(int from, int to, int last)	//此处last表示第一次使用无懈可击, 而不是未表明身份 
-{
+bool useJ(int from, int to, int last) {	//此处last表示第一次使用无懈可击, 而不是未表明身份 
 	int now = from;
-	while (true)
-	{
+	while (true) {
 		if (!last && is_friend(now, to) || last && is_enemy(now, last))
-			if(findcard(now, 'J'))
-			{
+			if(findcard(now, 'J')) {
 				if (!last && is_friend(now, to))  getfriend(now, to);
 				if ( last && is_enemy (now, last)) getenemy(now, last);
 				if (!useJ(pig[now].nxt, to, now))
@@ -465,14 +431,11 @@ bool useJ(int from, int to, int last)	//此处last表示第一次使用无懈可
 - 若忠猪误伤主猪，且忠猪未表明身份，则应视为类反猪。
 
 ```cpp
-void useN(int from, int to)
-{
-	while (true)
-	{
+void useN(int from, int to) {
+	while (true) {
 		if (gameover) return;	//一旦达成胜利条件, 游戏立刻结束
 		if (!useJ(from, to, 0))
-			if (!findcard(to, 'K'))	//不能响应则扣血
-			{
+			if (!findcard(to, 'K'))	{ //不能响应则扣血
 				if (pig[to].id == MP && !pig[from].eid)
 					pig[from].like_v = true;
 				hurt(from, to); 
@@ -488,14 +451,11 @@ void useN(int from, int to)
 同南猪入侵。
 
 ```cpp
-void useW(int from, int to)
-{
-	while (true)
-	{
+void useW(int from, int to) {
+	while (true) {
 		if (gameover) return;
 		if (!useJ(from, to, 0))
-			if (!findcard(to, 'D'))
-			{
+			if (!findcard(to, 'D')) {
 				if (pig[to].id == MP && !pig[from].eid)
 					pig[from].like_v = true;
 				hurt(from, to); 
@@ -516,55 +476,39 @@ void useW(int from, int to)
 - 不论如何，一旦达成胜利条件, 游戏立刻结束；
 
 ```cpp
-void rungame()
-{
-while (true)
-{
-	for (int i = 1; i <= n; i++)
-	{
+void rungame() {
+while (true) {
+	for (int i = 1; i <= n; i++) {
 		if(gameover) return;
 		if (pig[i].hp <= 0) continue;
 		getcard(i, 2);
 		bool flag = false;	//是否出过杀
-		for (int j = 1; j <= pig[i].cnt; j++)
-		{
+		for (int j = 1; j <= pig[i].cnt; j++) {
 			if (gameover || !pig[i].card[j]) continue;
-			switch (pig[i].card[j])
-			{
-				case 'P':
-				{
+			switch (pig[i].card[j]) {
+				case 'P': {
 					if (pig[i].hp < 4)
 						pig[i].card[j] = 0, pig[i].hp++;
 					break;
-				}
-				case 'K':
-				{
-					if (!flag && is_enemy(i, pig[i].nxt))
-					{
+				} case 'K': {
+					if (!flag && is_enemy(i, pig[i].nxt)) {
 						pig[i].card[j] = 0;
 						useK(i, pig[i].nxt);
 						if (!pig[i].weapon) flag = true;
 						j = 0;
 					}
 					break;
-				}
-				case 'F':
-				{
-					if (pig[i].id == FP)
-					{
+				} case 'F': {
+					if (pig[i].id == FP) {
 						pig[i].card[j] = 0;
 						getenemy(i, MP);
 						if (useJ(i, 1, 0)) break;
 						useF(i, 1);
 						j = 0;
-					}
-					else
-					{
+					} else {
 						int to = pig[i].nxt;
-						while (true)
-						{
-							if (is_enemy(i, to))
-							{
+						while (true) {
+							if (is_enemy(i, to)) {
 								pig[i].card[j] = 0;
 								getenemy(i, to);
 								if (useJ(i, to, 0)) break;
@@ -577,22 +521,19 @@ while (true)
 						}
 					}
 					break;
-				}
-				case 'N':
+				} case 'N':
 				{
 					pig[i].card[j] = 0;
 					useN(i, pig[i].nxt);
 					j = 0;
 					break;
-				}
-				case 'W':
+				} case 'W':
 				{
 					pig[i].card[j] = 0;
 					useW(i, pig[i].nxt);
 					j = 0;
 					break;
-				}
-				case 'Z':
+				} case 'Z':
 				{
 					pig[i].card[j] = 0;
 					pig[i].weapon = true, flag = false;
@@ -603,359 +544,24 @@ while (true)
 		}
 	}
 }}
-int main()
-{
+int main() {
 	scanf("%d%d", &n, &m);
-	for (int i = 1; i <= n; i++)
-	{
-		std :: string name; char ch;
+	for (int i = 1; i <= n; i++) {
+        char ch;
+		std :: string name;
 		std :: cin >> name;
-		switch (name[0])
-		{
+		switch (name[0]) {
 			case 'M': pig[i].id = MP, pig[i].eid = MP; break;
 			case 'Z': pig[i].id = ZP; break; 
 			case 'F': pig[i].id = FP, fpcnt++; break;
 		}
 		for (pig[i].cnt = 1; pig[i].cnt <= 4; pig[i].cnt++)
-			std :: cin >> ch,
-			pig[i].card[pig[i].cnt] = ch;
+			std :: cin >> ch, pig[i].card[pig[i].cnt] = ch;
 		pig[i].nxt = i + 1, pig[i].pre = i - 1;
 	}
 	pig[1].pre = n, pig[n].nxt = 1;
 	for (int i = 1; i <= m; i++)
-	{
-		char ch;
-		std :: cin >> ch;
-		cards[i] = ch; 
-	}
-	rungame();
-	puts(pig[MP].hp <= 0 ? "FP" : "MP");
-	for (int i = 1; i <= n; i++)
-		if (pig[i].hp <= 0) puts("DEAD");
-		else printcard(i);
-	return 0;
-}
-```
-
-# 完整代码
-
-```cpp
-#include <iostream>
-
-#include <cstdio>
-
-#include <string>
-
-
-const int N = 15, M = 2005;
-enum PIG_TYPE
-{
-	UKE, MP, ZP, FP 
-};
-struct Pig
-{
-	int id,	eid;
-	bool like_v;
-	int hp;
-	bool weapon;
-	int cnt;
-	char card[M];
-	int pre, nxt;
-	Pig()
-	{
-		for (int i = 1; i < M; i++)
-			card[i] = 0;
-		hp = 4;
-	}
-}pig[N];
-int n, m;
-int top = 1;
-char cards[M];
-bool gameover;
-int fpcnt;
-
-void printcard(int);
-bool findcard (int, char);
-void getcard  (int, int);
-void hurted   (int, int); 
-bool is_enemy (int, int);
-bool is_friend(int, int);
-void getfriend(int, int);
-void getenemy (int, int);
-void useK	  (int, int);
-void useF     (int, int);
-bool useJ	  (int, int, int);
-void useN	  (int, int);
-void useW	  (int, int);
-void rungame  ();
-
-void printcard(int x)
-{
-	for (int i = 1; i <= pig[x].cnt; i++)
-		if (pig[x].card[i])
-			printf("%c ", pig[x].card[i]);
-	puts("");
-}
-bool findcard(int x, char card)
-{
-	for (int i = 1; i <= pig[x].cnt; i++)
-		if (pig[x].card[i] == card)
-		{
-			pig[x].card[i] = 0;
-			return true;
-		}
-	return false;
-}
-void getcard(int x, int times = 1)
-{
-	while (times--)
-	{
-		top = std :: min(top, m);
-		pig[x].card[++pig[x].cnt] = cards[top++];
-	}
-}
-void hurt(int from, int to) 
-{
-	pig[to].hp--;
-	while (pig[to].hp < 1 && findcard(to, 'P'))
-		pig[to].hp++;
-	if (pig[to].hp <= 0)
-	{
-		pig[to].cnt = 0, pig[to].weapon = false;
-		switch (pig[to].id)
-		{
-			case MP:
-			{
-				gameover = true;
-				return;
-			}
-			case ZP:
-			{
-				if (pig[from].id == MP)
-					pig[from].cnt = 0, pig[from].weapon = false;
-				break;
-			}
-			case FP:
-			{
-				if(!--fpcnt)
-				{
-					gameover = true;
-					return;
-				}	 
-				getcard(from, 3);
-				break;
-			}
-		}
-		pig[pig[to].pre].nxt = pig[to].nxt, pig[pig[to].nxt].pre = pig[to].pre;
-	}
-}
-bool is_enemy(int x, int y)
-{
-	if (pig[x].id == MP && pig[y].like_v) return true; 
-	else if (!pig[y].eid) return false;
-	else if (pig[x].id != FP && pig[y].eid == FP || pig[x].id == FP && pig[y].eid != FP)
-		return true;
-	return false;
-}
-bool is_friend(int x, int y)
-{
-	if (!pig[y].eid) return false;
-	else if (pig[x].id != FP && pig[y].eid != FP || pig[x].id == FP && pig[y].eid == FP)
-		return true;
-	return false; 
-}
-void getenemy(int x, int y)
-{
-	if (!pig[y].eid) return;
-	if (pig[y].eid != FP) pig[x].like_v = true, pig[x].eid = FP;
-	else pig[x].like_v = false, pig[x].eid = ZP;
-}
-void getfriend(int x, int y)
-{ 
-	if (!pig[y].eid) return;
-	if (pig[y].eid != FP) pig[x].like_v = false, pig[x].eid = ZP;
-	else pig[x].like_v = true, pig[x].eid = FP;
-}
-void useK(int from, int to)
-{
-	getenemy(from, to);
-	if (!findcard(to, 'D'))
-		hurt(from, to);
-}
-void useF(int from, int to)
-{
-	if (pig[from].id == MP && pig[to].id == ZP)
-	{
-		hurt(from, to);
-		return;
-	}
-	while (true)
-	{
-		if (!findcard(to, 'K'))   {hurt(from, to); return;}
-		if (!findcard(from, 'K')) {hurt(to, from); return;}
-	}
-}
-bool useJ(int from, int to, int last)
-{
-	int now = from;
-	while (true)
-	{
-		if (!last && is_friend(now, to) || last && is_enemy(now, last))
-			if(findcard(now, 'J'))
-			{
-				if (!last && is_friend(now, to))  getfriend(now, to);
-				if ( last && is_enemy (now, last)) getenemy(now, last);
-				if (!useJ(pig[now].nxt, to, now))
-					return true;
-			} 
-		if ((now = pig[now].nxt) == from)
-			return false;	 
-	}
-}
-void useN(int from, int to)
-{
-	while (true)
-	{
-		if (gameover) return;
-		if (!useJ(from, to, 0))
-			if (!findcard(to, 'K'))
-			{
-				if (pig[to].id == MP && !pig[from].eid)
-					pig[from].like_v = true;
-				hurt(from, to); 
-			}
-		if ((to = pig[to].nxt) == from)
-			return;
-	}
-}
-void useW(int from, int to)
-{
-	while (true)
-	{
-		if (gameover) return;
-		if (!useJ(from, to, 0))
-			if (!findcard(to, 'D'))
-			{
-				if (pig[to].id == MP && !pig[from].eid)
-					pig[from].like_v = true;
-				hurt(from, to); 
-			}
-		if ((to = pig[to].nxt) == from)
-			return;
-	}
-}
-void rungame()
-{
-while (true)
-{
-	for (int i = 1; i <= n; i++)
-	{
-		if(gameover) return;
-		if (pig[i].hp <= 0) continue;
-		getcard(i, 2);
-		bool flag = false;
-		for (int j = 1; j <= pig[i].cnt; j++)
-		{
-			if (gameover || !pig[i].card[j]) continue;
-			switch (pig[i].card[j])
-			{
-				case 'P':
-				{
-					if (pig[i].hp < 4)
-						pig[i].card[j] = 0, pig[i].hp++;
-					break;
-				}
-				case 'K':
-				{
-					if (!flag && is_enemy(i, pig[i].nxt))
-					{
-						pig[i].card[j] = 0;
-						useK(i, pig[i].nxt);
-						if (!pig[i].weapon) flag = true;
-						j = 0;
-					}
-					break;
-				}
-				case 'F':
-				{
-					if (pig[i].id == FP)
-					{
-						pig[i].card[j] = 0;
-						getenemy(i, MP);
-						if (useJ(i, 1, 0)) break;
-						useF(i, 1);
-						j = 0;
-					}
-					else
-					{
-						int to = pig[i].nxt;
-						while (true)
-						{
-							if (is_enemy(i, to))
-							{
-								pig[i].card[j] = 0;
-								getenemy(i, to);
-								if (useJ(i, to, 0)) break;
-								useF(i, to);
-								j = 0;
-								break;
-							}
-							to = pig[to].nxt;
-							if (to == i) break;
-						}
-					}
-					break;
-				}
-				case 'N':
-				{
-					pig[i].card[j] = 0;
-					useN(i, pig[i].nxt);
-					j = 0;
-					break;
-				}
-				case 'W':
-				{
-					pig[i].card[j] = 0;
-					useW(i, pig[i].nxt);
-					j = 0;
-					break;
-				}
-				case 'Z':
-				{
-					pig[i].card[j] = 0;
-					pig[i].weapon = true, flag = false;
-					j = 0;
-					break;
-				}
-			}
-		}
-	}
-}}
-int main()
-{
-	scanf("%d%d", &n, &m);
-	for (int i = 1; i <= n; i++)
-	{
-		std :: string name; char ch;
-		std :: cin >> name;
-		switch (name[0])
-		{
-			case 'M': pig[i].id = MP, pig[i].eid = MP; break;
-			case 'Z': pig[i].id = ZP; break; 
-			case 'F': pig[i].id = FP, fpcnt++; break;
-		}
-		for (pig[i].cnt = 1; pig[i].cnt <= 4; pig[i].cnt++)
-			std :: cin >> ch,
-			pig[i].card[pig[i].cnt] = ch;
-		pig[i].nxt = i + 1, pig[i].pre = i - 1;
-	}
-	pig[1].pre = n, pig[n].nxt = 1;
-	for (int i = 1; i <= m; i++)
-	{
-		char ch;
-		std :: cin >> ch;
-		cards[i] = ch; 
-	}
+        std :: cin >> cards[i];
 	rungame();
 	puts(pig[MP].hp <= 0 ? "FP" : "MP");
 	for (int i = 1; i <= n; i++)
