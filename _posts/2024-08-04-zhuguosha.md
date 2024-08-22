@@ -280,7 +280,7 @@ void hurt(int from, int to)
 ```cpp
 bool is_enemy(int x, int y) {
 	if (pig[x].id == MP && pig[y].like_v) return true;	//主猪与类反猪是敌人 
-	else if (!pig[y].eid) return false;					//未显露身份, 不是敌人 
+	else if (!pig[y].eid) return false;			//未显露身份, 不是敌人 
 	//主猪、忠猪与反猪是敌人 
 	else if (pig[x].id != FP && pig[y].eid == FP || pig[x].id == FP && pig[y].eid != FP)
 		return true;
