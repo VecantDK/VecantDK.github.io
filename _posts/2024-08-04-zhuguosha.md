@@ -155,10 +155,10 @@ enum PIG_TYPE {
     MP = 1, ZP, FP 
 };
 int n, m;
-int top = 1;	//牌堆顶
-char cards[M];	//牌堆
-bool gameover;	//游戏是否结束
-int fpcnt;		//反猪数量
+int top = 1;    //牌堆顶
+char cards[M];  //牌堆
+bool gameover;  //游戏是否结束
+int fpcnt;      //反猪数量
 ```
 
 我们使用一个枚举型来表示猪的种类。其值对应如下：
