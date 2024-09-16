@@ -268,16 +268,16 @@ void hurt(int from, int to)
 
 该部分实现了四个函数。它们的功能如下：
 
-- `bool is_enemy(int x, int y)`：判断 $x$ 和 $y$ 是否为敌人关系；
-- `bool is_friend(int x, int y)`：判断 $x$ 和 $y$ 是否为朋友关系；
-- `void getenemy(int x, int y)`：$x$ 向 $y$「表敌意」；
+- `bool isEnemy(int x, int y)`：判断 $x$ 和 $y$ 是否为敌人关系；
+- `bool isFriend(int x, int y)`：判断 $x$ 和 $y$ 是否为朋友关系；
+- `void getEnemy(int x, int y)`：$x$ 向 $y$「表敌意」；
 
-- `void getfriend(int x, int y)`：$x$ 向 $y$「献殷勤」。
+- `void getFriend(int x, int y)`：$x$ 向 $y$「献殷勤」。
 
 注意：前两个函数判断的是两只猪的真实身份（即 `id`），而后者所改变的是暴露的身份（即 `eid`）。
 
 ```cpp
-bool is_enemy(int x, int y) {
+bool isEnemy(int x, int y) {
     if (pig[x].id == MP && pig[y].like_v) return true;	//主猪与类反猪是敌人 
     else if (!pig[y].eid) return false;			//未显露身份, 不是敌人 
     //主猪、忠猪与反猪是敌人 
@@ -285,20 +285,20 @@ bool is_enemy(int x, int y) {
         return true;
     return false;
 }
-bool is_friend(int x, int y) {
+bool isFriend(int x, int y) {
     if (!pig[y].eid) return false;
     //同类是朋友; 主猪与忠猪是朋友 
     else if (pig[x].id != FP && pig[y].eid != FP || pig[x].id == FP && pig[y].eid == FP)
         return true;
     return false; 
 }
-void getenemy(int x, int y) {
+void getEnemy(int x, int y) {
     //不应对未亮身份的猪操作
     if (!pig[y].eid) return;
     if (pig[y].eid != FP) pig[x].like_v = true, pig[x].eid = FP;
     else pig[x].like_v = false, pig[x].eid = ZP;
 }
-void getfriend(int x, int y) { 
+void getFriend(int x, int y) { 
     if (!pig[y].eid) return;
     if (pig[y].eid != FP) pig[x].like_v = false, pig[x].eid = ZP;
     else pig[x].like_v = true, pig[x].eid = FP;
@@ -313,7 +313,7 @@ void getfriend(int x, int y) {
 
 ```cpp
 void useK(int from, int to) {
-    getenemy(from, to);
+    getEnemy(from, to);
     if (!findcard(to, 'D'))
         hurt(from, to);
 }
@@ -347,10 +347,10 @@ void useF(int from, int to) {
 bool useJ(int from, int to, int last) {	//此处last表示第一次使用无懈可击, 而不是未表明身份 
     int now = from;
     while (true) {
-        if (!last && is_friend(now, to) || last && is_enemy(now, last))
+        if (!last && isFriend(now, to) || last && isEnemy(now, last))
             if(findcard(now, 'J')) {
-                if (!last && is_friend(now, to))  getfriend(now, to);
-                if ( last && is_enemy (now, last)) getenemy(now, last);
+                if (!last && isFriend(now, to))  getFriend(now, to);
+                if ( last && isEnemy (now, last)) getEnemy(now, last);
                 if (!useJ(pig[now].nxt, to, now))
                     return true;	//若未被其他无懈可击抵消, 则该操作有效 
             } 
@@ -428,7 +428,7 @@ while (true) {
                         pig[i].card[j] = 0, pig[i].hp++;
                     break;
                 } case 'K': {
-                    if (!flag && is_enemy(i, pig[i].nxt)) {
+                    if (!flag && isEnemy(i, pig[i].nxt)) {
                         pig[i].card[j] = 0;
                         useK(i, pig[i].nxt);
                         if (!pig[i].weapon) flag = true;
@@ -438,16 +438,16 @@ while (true) {
                 } case 'F': {
                     if (pig[i].id == FP) {
                         pig[i].card[j] = 0;
-                        getenemy(i, MP);
+                        getEnemy(i, MP);
                         if (useJ(i, 1, 0)) break;
                         useF(i, 1);
                         j = 0;
                     } else {
                         int to = pig[i].nxt;
                         while (true) {
-                            if (is_enemy(i, to)) {
+                            if (isEnemy(i, to)) {
                                 pig[i].card[j] = 0;
-                                getenemy(i, to);
+                                getEnemy(i, to);
                                 if (useJ(i, to, 0)) break;
                                 useF(i, to);
                                 j = 0;
