@@ -197,11 +197,12 @@ struct Pig {
 ### 打印猪的手牌
 
 ```cpp
-void printcard(int x) { //打印第x只猪的手牌
+int printcard(int x) { //打印第x只猪的手牌
     for (int i = 1; i <= pig[x].cnt; i++)
         if (pig[x].card[i])
             printf("%c ", pig[x].card[i]);
     puts("");
+    return 0;
 }
 ```
 
@@ -293,8 +294,7 @@ bool isFriend(int x, int y) {
     return false; 
 }
 void getEnemy(int x, int y) {
-    //不应对未亮身份的猪操作
-    if (!pig[y].eid) return;
+    if (!pig[y].eid) return; //不应对未亮身份的猪操作
     if (pig[y].eid != FP) pig[x].like_v = true, pig[x].eid = FP;
     else pig[x].like_v = false, pig[x].eid = ZP;
 }
@@ -499,8 +499,7 @@ int main() {
     rungame();
     puts(pig[MP].hp <= 0 ? "FP" : "MP");
     for (int i = 1; i <= n; i++)
-        if (pig[i].hp <= 0) puts("DEAD");
-        else printcard(i);
+        pig[i].hp <= 0 ? puts("DEAD") : printcard(i);
     return 0;
 }
 ```
