@@ -226,7 +226,7 @@ bool findcard(int x, char card) {
 ```cpp
 void getcard(int x, int times = 1) {
     while (times--)
-        pig[x].card[++pig[x].cnt] = cards[(top = std :: min(top, m))++];
+        pig[x].card[++pig[x].cnt] = cards[(top = std::min(top, m))++];
 }
 ```
 
@@ -482,20 +482,20 @@ int main() {
     scanf("%d%d", &n, &m);
     for (int i = 1; i <= n; i++) {
         char ch;
-        std :: string name;
-        std :: cin >> name;
+        std::string name;
+        std::cin >> name;
         switch (name[0]) {
             case 'M': pig[i].id = MP, pig[i].eid = MP; break;
             case 'Z': pig[i].id = ZP; break; 
             case 'F': pig[i].id = FP, fpcnt++; break;
         }
         for (pig[i].cnt = 1; pig[i].cnt <= 4; pig[i].cnt++)
-            std :: cin >> ch, pig[i].card[pig[i].cnt] = ch;
+            std::cin >> ch, pig[i].card[pig[i].cnt] = ch;
         pig[i].nxt = i + 1, pig[i].pre = i - 1;
     }
     pig[1].pre = n, pig[n].nxt = 1;
     for (int i = 1; i <= m; i++)
-    std :: cin >> cards[i];
+    std::cin >> cards[i];
     rungame();
     puts(pig[MP].hp <= 0 ? "FP" : "MP");
     for (int i = 1; i <= n; i++)
